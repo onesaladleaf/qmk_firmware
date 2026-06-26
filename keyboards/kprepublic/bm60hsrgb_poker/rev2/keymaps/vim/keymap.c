@@ -2,6 +2,8 @@
 
 #include "keymap_colemak.h"
 
+#define xxxxxxx KC_NO
+
 enum layer_names {
     L_INSERT = 0,
     L_NORMAL,
@@ -33,10 +35,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______
     ),
     [L_VIM_D] = LAYOUT_60_ansi(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, C(KC_DEL), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, KC_BSPC, _______, _______, KC_DEL, _______, _______, _______,
-        _______, _______, _______, _______, _______, C(KC_BSPC), _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______
+        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+        xxxxxxx, xxxxxxx, C(KC_DEL), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_BSPC, xxxxxxx, xxxxxxx, KC_DEL, xxxxxxx, xxxxxxx, xxxxxxx,
+        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, C(KC_BSPC), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx
     ),
 };
