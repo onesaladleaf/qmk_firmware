@@ -1,8 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "keymap_colemak.h"
-
-#define xxxxxxx KC_NO
+#include "aliases.h"
 
 enum layer_names {
     L_INSERT = 0,
@@ -13,11 +12,11 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
     [L_TEMPLATE] = LAYOUT_60_ansi(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______
+        ___GESC, ______1, ______2, ______3, ______4, ______5, ______6, ______7, ______8, ______9, ______0, ___MINS, ____EQL, ___BSPC,
+        ____TAB, ______Q, ______W, ______F, ______P, ______G, ______J, ______L, ______U, ______Y, ___SCLN, ___LBRC, ___RBRC, ___BSLS,
+        ___BSPC, ______A, ______R, ______S, ______T, ______D, ______H, ______N, ______E, ______I, ______O, ___QUOT, ____ENT,
+        ___LSFT, ______Z, ______X, ______C, ______V, ______B, ______K, ______M, ___COMM, ____DOT, ___SLSH, ___RSFT,
+        ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
     ),
     */
     [L_INSERT] = LAYOUT_60_ansi(
@@ -28,17 +27,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, MO(L_NORMAL), KC_LGUI, KC_SPC, KC_LALT, KC_RALT, KC_RCTL, TG(L_NORMAL)
     ),
     [L_NORMAL] = LAYOUT_60_ansi(
-        _______, QK_BOOT, RM_TOGG, RM_NEXT, RM_HUEU, RM_HUED, RM_SATU, RM_SATD, RM_VALU, RM_VALD, KC_MPLY, KC_VOLD, KC_VOLU, KC_DEL,
-        _______, _______, C(KC_RGHT), _______, _______, _______, _______, KC_HOME, _______, _______, _______, KC_PGUP, KC_PGDN, _______,
-        _______, KC_END, _______, _______, _______, OSL(L_VIM_D), KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, _______, _______, _______,
-        _______, _______, KC_DEL, _______, _______, C(KC_LEFT), NK_TOGG, _______, MS_WHLU, MS_WHLD, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______
+        ___GESC, QK_BOOT, RM_TOGG, RM_NEXT, RM_HUEU, RM_HUED, RM_SATU, RM_SATD, RM_VALU, RM_VALD, KC_MPLY, KC_VOLD, KC_VOLU, KC_DEL,
+        ____TAB, ______Q, C(KC_RGHT), ______F, ______P, ______G, ______J, KC_HOME, ______U, ______Y, ___SCLN, KC_PGUP, KC_PGDN, ___BSLS,
+        ___BSPC, KC_END, ______R, ______S, ______T, OSL(L_VIM_D), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ______O, ___QUOT, ____ENT,
+        ___LSFT, ______Z, KC_DEL, ______C, ______V, C(KC_LEFT), NK_TOGG, ______M, MS_WHLU, MS_WHLD, ___SLSH, ___RSFT,
+        ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
     ),
     [L_VIM_D] = LAYOUT_60_ansi(
-        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-        xxxxxxx, xxxxxxx, C(KC_DEL), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_BSPC, xxxxxxx, xxxxxxx, KC_DEL, xxxxxxx, xxxxxxx, xxxxxxx,
-        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, C(KC_BSPC), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-        xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx
+        xxxGESC, xxxxxx1, xxxxxx2, xxxxxx3, xxxxxx4, xxxxxx5, xxxxxx6, xxxxxx7, xxxxxx8, xxxxxx9, xxxxxx0, xxxMINS, xxxxEQL, xxxBSPC,
+        xxxxTAB, xxxxxxQ, C(KC_DEL), xxxxxxF, xxxxxxP, xxxxxxG, xxxxxxJ, xxxxxxL, xxxxxxU, xxxxxxY, xxxSCLN, xxxLBRC, xxxRBRC, xxxBSLS,
+        xxxBSPC, xxxxxxA, xxxxxxR, xxxxxxS, xxxxxxT, xxxxxxD, KC_BSPC, xxxxxxN, xxxxxxE, KC_DEL, xxxxxxO, xxxQUOT, xxxxENT,
+        xxxLSFT, xxxxxxZ, xxxxxxX, xxxxxxC, xxxxxxV, C(KC_BSPC), xxxxxxK, xxxxxxM, xxxCOMM, xxxxDOT, xxxSLSH, xxxRSFT,
+        xxxLCTL, xxxxxxx, xxxLGUI, xxxxSPC, xxxLALT, xxxRALT, xxxRCTL, xxxxxxx
     ),
 };
