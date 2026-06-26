@@ -6,6 +6,7 @@
 enum layer_names {
     L_INSERT = 0,
     L_NORMAL,
+    L_S_NORMAL,
     L_VIM_D,
 };
 
@@ -28,9 +29,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [L_NORMAL] = LAYOUT_60_ansi(
         ___GESC, QK_BOOT, RM_TOGG, RM_NEXT, RM_HUEU, RM_HUED, RM_SATU, RM_SATD, RM_VALU, RM_VALD, KC_MPLY, KC_VOLD, KC_VOLU, KC_DEL,
-        ____TAB, ______Q, C(KC_RGHT), ______F, ______P, ______G, ______J, KC_HOME, ______U, ______Y, ___SCLN, KC_PGUP, KC_PGDN, ___BSLS,
-        ___BSPC, KC_END, ______R, ______S, ______T, OSL(L_VIM_D), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ______O, ___QUOT, ____ENT,
-        ___LSFT, ______Z, KC_DEL, ______C, ______V, C(KC_LEFT), NK_TOGG, ______M, MS_WHLU, MS_WHLD, ___SLSH, ___RSFT,
+        ____TAB, ______Q, C(KC_RGHT), ______F, C(CM_V), ______G, ______J, ______L, C(CM_Z), C(CM_C), ___SCLN, KC_PGUP, KC_PGDN, ___BSLS,
+        ___BSPC, ______A, ______R, ______S, ______T, OSL(L_VIM_D), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ______O, ___QUOT, ____ENT,
+        MO(L_S_NORMAL), ______Z, KC_DEL, ______C, ______V, C(KC_LEFT), NK_TOGG, ______M, MS_WHLU, MS_WHLD, C(CM_F), MO(L_S_NORMAL),
+        ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
+    ),
+    [L_S_NORMAL] = LAYOUT_60_ansi(
+        ___GESC, ______1, ______2, ______3, KC_END, ______5, ______6, ______7, ______8, ______9, ______0, ___MINS, ____EQL, ___BSPC,
+        ____TAB, ______Q, C(KC_RGHT), ______F, C(CM_V), C(KC_END), ______J, KC_HOME, LCS(CM_Z), C(CM_C), ___SCLN, ___LBRC, ___RBRC, ___BSLS,
+        ___BSPC, KC_END, ______R, ______S, ______T, ______D, ______H, ______N, C(KC_RGHT), KC_HOME, ______O, ___QUOT, ____ENT,
+        ___LSFT, ______Z, KC_BSPC, ______C, ______V, C(KC_LEFT), ______K, ______M, MS_WHLU, MS_WHLD, ___SLSH, ___RSFT,
         ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
     ),
     [L_VIM_D] = LAYOUT_60_ansi(
