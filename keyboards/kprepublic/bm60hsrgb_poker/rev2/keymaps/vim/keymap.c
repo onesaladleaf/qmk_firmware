@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include "keymap_colemak.h"
+
 enum layer_names {
     L_INSERT = 0,
     L_NORMAL,
@@ -7,10 +9,10 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_INSERT] = LAYOUT_60_ansi(
-        QK_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC,
-        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
-        KC_BSPC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
-        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
+        QK_GESC, CM_1, CM_2, CM_3, CM_4, CM_5, CM_6, CM_7, CM_8, CM_9, CM_0, CM_MINS, CM_EQL, KC_BSPC,
+        KC_TAB, CM_Q, CM_W, CM_F, CM_P, CM_G, CM_J, CM_L, CM_U, CM_Y, CM_SCLN, CM_LBRC, CM_RBRC, CM_BSLS,
+        KC_BSPC, CM_A, CM_R, CM_S, CM_T, CM_D, CM_H, CM_N, CM_E, CM_I, CM_O, CM_QUOT, KC_ENT,
+        KC_LSFT, CM_Z, CM_X, CM_C, CM_V, CM_B, CM_K, CM_M, CM_COMM, CM_DOT, CM_SLSH, KC_RSFT,
         KC_LCTL, MO(L_NORMAL), KC_LGUI, KC_SPC, KC_LALT, KC_RALT, KC_RCTL, TG(L_NORMAL)
     ),
     [L_NORMAL] = LAYOUT_60_ansi(
