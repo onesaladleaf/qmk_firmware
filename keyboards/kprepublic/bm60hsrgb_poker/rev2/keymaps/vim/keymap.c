@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "keymap_colemak.h"
+#include "sendstring_colemak.h"
 #include "aliases.h"
 
 enum layer_names {
@@ -9,6 +10,10 @@ enum layer_names {
     L_S_NORMAL,
     L_VISUAL,
     L_VIM_D,
+};
+
+enum custom_keycodes {
+    M_VIM_DD = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_VIM_D] = LAYOUT_60_ansi(
         xxxGESC, xxxxxx1, xxxxxx2, xxxxxx3, xxxxxx4, xxxxxx5, xxxxxx6, xxxxxx7, xxxxxx8, xxxxxx9, xxxxxx0, xxxMINS, xxxxEQL, xxxBSPC,
         xxxxTAB, xxxxxxQ, C(KC_DEL), xxxxxxF, xxxxxxP, xxxxxxG, xxxxxxJ, xxxxxxL, xxxxxxU, xxxxxxY, xxxSCLN, xxxLBRC, xxxRBRC, xxxBSLS,
-        xxxBSPC, xxxxxxA, xxxxxxR, xxxxxxS, xxxxxxT, xxxxxxD, KC_BSPC, xxxxxxN, xxxxxxE, KC_DEL, xxxxxxO, xxxQUOT, xxxxENT,
+        xxxBSPC, xxxxxxA, xxxxxxR, xxxxxxS, xxxxxxT, M_VIM_DD, KC_BSPC, xxxxxxN, xxxxxxE, KC_DEL, xxxxxxO, xxxQUOT, xxxxENT,
         xxxLSFT, xxxxxxZ, xxxxxxX, xxxxxxC, xxxxxxV, C(KC_BSPC), xxxxxxK, xxxxxxM, xxxCOMM, xxxxDOT, xxxSLSH, xxxRSFT,
         xxxLCTL, xxxxxxx, xxxLGUI, xxxxSPC, xxxLALT, xxxRALT, xxxRCTL, xxxxxxx
     ),
@@ -65,6 +70,18 @@ bool rgb_matrix_indicators_user(void) {
     } else {
         rgb_matrix_set_color(54, 0, 0, 0);
         rgb_matrix_set_color(60, 0, 0, 0);
+    }
+
+    return true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case M_VIM_DD:
+        if (record->event.pressed) {
+            SEND_STRING(SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_LCTL("x"));
+        }
+        break;
     }
 
     return true;
