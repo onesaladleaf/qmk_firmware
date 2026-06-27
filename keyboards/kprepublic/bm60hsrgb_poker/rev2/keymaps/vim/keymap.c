@@ -10,14 +10,21 @@ enum layer_names {
     L_S_NORMAL,
     L_VISUAL,
     L_VIM_D,
+    L_VIM_Y,
 };
 
 enum custom_keycodes {
     M_VIM_DEL_LINE = SAFE_RANGE,
+
     M_VIM_APPEND,
     M_VIM_INSERT,
+
     M_VIM_APP_LINE,
     M_VIM_INS_LINE,
+
+    M_VIM_COPY_LINE,
+    M_VIM_COPY_WORD,
+    M_VIM_COPY_BACK,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -39,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [L_NORMAL] = LAYOUT_60_ansi(
         ___GESC, QK_BOOT, RM_TOGG, RM_NEXT, RM_HUEU, RM_HUED, RM_SATU, RM_SATD, RM_VALU, RM_VALD, KC_MPLY, KC_VOLD, KC_VOLU, KC_DEL,
-        ____TAB, ______Q, C(KC_RGHT), ______F, C(CM_V), ______G, ______J, TG(L_NORMAL), C(CM_Z), C(CM_C), ___SCLN, KC_PGUP, KC_PGDN, ___BSLS,
+        ____TAB, ______Q, C(KC_RGHT), ______F, C(CM_V), ______G, ______J, TG(L_NORMAL), C(CM_Z), OSL(L_VIM_Y), ___SCLN, KC_PGUP, KC_PGDN, ___BSLS,
         ___BSPC, TG(L_NORMAL), ______R, ______S, ______T, OSL(L_VIM_D), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, M_VIM_APP_LINE, ___QUOT, ____ENT,
         MO(L_S_NORMAL), ______Z, KC_DEL, ______C, TG(L_VISUAL), C(KC_LEFT), NK_TOGG, ______M, MS_WHLU, MS_WHLD, C(CM_F), MO(L_S_NORMAL),
         ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
@@ -58,9 +65,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         xxxLSFT, xxxxxxZ, xxxxxxX, xxxxxxC, xxxxxxV, C(KC_BSPC), xxxxxxK, xxxxxxM, xxxCOMM, xxxxDOT, xxxSLSH, xxxRSFT,
         xxxLCTL, xxxxxxx, xxxLGUI, xxxxSPC, xxxLALT, xxxRALT, xxxRCTL, xxxxxxx
     ),
+    [L_VIM_Y] = LAYOUT_60_ansi(
+        xxxGESC, xxxxxx1, xxxxxx2, xxxxxx3, xxxxxx4, xxxxxx5, xxxxxx6, xxxxxx7, xxxxxx8, xxxxxx9, xxxxxx0, xxxMINS, xxxxEQL, xxxBSPC,
+        xxxxTAB, xxxxxxQ, M_VIM_COPY_WORD, xxxxxxF, xxxxxxP, xxxxxxG, xxxxxxJ, xxxxxxL, xxxxxxU, M_VIM_COPY_LINE, xxxSCLN, xxxLBRC, xxxRBRC, xxxBSLS,
+        xxxBSPC, xxxxxxA, xxxxxxR, xxxxxxS, xxxxxxT, xxxxxxD, xxxxxxH, xxxxxxN, xxxxxxE, xxxxxxI, xxxxxxO, xxxQUOT, xxxxENT,
+        xxxLSFT, xxxxxxZ, xxxxxxX, xxxxxxC, xxxxxxV, M_VIM_COPY_BACK, xxxxxxK, xxxxxxM, xxxCOMM, xxxxDOT, xxxSLSH, xxxRSFT,
+        xxxLCTL, xxxxxxx, xxxLGUI, xxxxSPC, xxxLALT, xxxRALT, xxxRCTL, xxxxxxx
+    ),
     [L_VISUAL] = LAYOUT_60_ansi(
         TG(L_VISUAL), ______1, ______2, ______3, ______4, ______5, ______6, ______7, ______8, ______9, ______0, ___MINS, ____EQL, ___BSPC,
-        ____TAB, ______Q, LCS(KC_RGHT), ______F, ______P, ______G, ______J, ______L, ______U, ______Y, ___SCLN, ___LBRC, ___RBRC, ___BSLS,
+        ____TAB, ______Q, LCS(KC_RGHT), ______F, ______P, ______G, ______J, ______L, ______U, C(CM_C), ___SCLN, ___LBRC, ___RBRC, ___BSLS,
         ___BSPC, ______A, ______R, ______S, ______T, C(CM_X), S(KC_LEFT), S(KC_DOWN), S(KC_UP), S(KC_RGHT), ______O, ___QUOT, ____ENT,
         ___LSFT, ______Z, C(CM_X), ______C, TG(L_VISUAL), LCS(KC_LEFT), ______K, ______M, ___COMM, ____DOT, ___SLSH, ___RSFT,
         ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
@@ -115,6 +129,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             tap_code(KC_HOME);
             tap_code(KC_ENT);
             tap_code(KC_UP);
+        }
+        break;
+    case M_VIM_COPY_LINE:
+        if (record->event.pressed) {
+            tap_code(KC_END);
+            tap_code16(S(KC_HOME));
+            tap_code16(C(CM_C));
+        }
+        break;
+    case M_VIM_COPY_WORD:
+        if (record->event.pressed) {
+            tap_code16(LCS(KC_RGHT));
+            tap_code16(C(CM_C));
+        }
+        break;
+    case M_VIM_COPY_BACK:
+        if (record->event.pressed) {
+            tap_code16(LCS(KC_LEFT));
+            tap_code16(C(CM_C));
         }
         break;
     }
