@@ -13,7 +13,11 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    M_VIM_DD = SAFE_RANGE,
+    M_VIM_DEL_LINE = SAFE_RANGE,
+    M_VIM_APPEND,
+    M_VIM_INSERT,
+    M_VIM_APP_LINE,
+    M_VIM_INS_LINE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -35,22 +39,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [L_NORMAL] = LAYOUT_60_ansi(
         ___GESC, QK_BOOT, RM_TOGG, RM_NEXT, RM_HUEU, RM_HUED, RM_SATU, RM_SATD, RM_VALU, RM_VALD, KC_MPLY, KC_VOLD, KC_VOLU, KC_DEL,
-        ____TAB, ______Q, C(KC_RGHT), ______F, C(CM_V), ______G, ______J, ______L, C(CM_Z), C(CM_C), ___SCLN, KC_PGUP, KC_PGDN, ___BSLS,
-        ___BSPC, ______A, ______R, ______S, ______T, OSL(L_VIM_D), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ______O, ___QUOT, ____ENT,
+        ____TAB, ______Q, C(KC_RGHT), ______F, C(CM_V), ______G, ______J, TG(L_NORMAL), C(CM_Z), C(CM_C), ___SCLN, KC_PGUP, KC_PGDN, ___BSLS,
+        ___BSPC, TG(L_NORMAL), ______R, ______S, ______T, OSL(L_VIM_D), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, M_VIM_APP_LINE, ___QUOT, ____ENT,
         MO(L_S_NORMAL), ______Z, KC_DEL, ______C, TG(L_VISUAL), C(KC_LEFT), NK_TOGG, ______M, MS_WHLU, MS_WHLD, C(CM_F), MO(L_S_NORMAL),
         ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
     ),
     [L_S_NORMAL] = LAYOUT_60_ansi(
         ___GESC, ______1, ______2, ______3, KC_END, ______5, ______6, ______7, ______8, ______9, ______0, ___MINS, ____EQL, ___BSPC,
-        ____TAB, ______Q, C(KC_RGHT), ______F, C(CM_V), C(KC_END), ______J, KC_HOME, LCS(CM_Z), C(CM_C), ___SCLN, ___LBRC, ___RBRC, ___BSLS,
-        ___BSPC, KC_END, ______R, ______S, ______T, ______D, ______H, ______N, C(KC_RGHT), KC_HOME, ______O, ___QUOT, ____ENT,
+        ____TAB, ______Q, C(KC_RGHT), ______F, C(CM_V), C(KC_END), ______J, M_VIM_INSERT, LCS(CM_Z), C(CM_C), ___SCLN, ___LBRC, ___RBRC, ___BSLS,
+        ___BSPC, M_VIM_APPEND, ______R, ______S, ______T, ______D, ______H, ______N, C(KC_RGHT), M_VIM_INSERT, M_VIM_INS_LINE, ___QUOT, ____ENT,
         ___LSFT, ______Z, KC_BSPC, ______C, TG(L_VISUAL), C(KC_LEFT), ______K, ______M, MS_WHLU, MS_WHLD, ___SLSH, ___RSFT,
         ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
     ),
     [L_VIM_D] = LAYOUT_60_ansi(
         xxxGESC, xxxxxx1, xxxxxx2, xxxxxx3, xxxxxx4, xxxxxx5, xxxxxx6, xxxxxx7, xxxxxx8, xxxxxx9, xxxxxx0, xxxMINS, xxxxEQL, xxxBSPC,
         xxxxTAB, xxxxxxQ, C(KC_DEL), xxxxxxF, xxxxxxP, xxxxxxG, xxxxxxJ, xxxxxxL, xxxxxxU, xxxxxxY, xxxSCLN, xxxLBRC, xxxRBRC, xxxBSLS,
-        xxxBSPC, xxxxxxA, xxxxxxR, xxxxxxS, xxxxxxT, M_VIM_DD, KC_BSPC, xxxxxxN, xxxxxxE, KC_DEL, xxxxxxO, xxxQUOT, xxxxENT,
+        xxxBSPC, xxxxxxA, xxxxxxR, xxxxxxS, xxxxxxT, M_VIM_DEL_LINE, KC_BSPC, xxxxxxN, xxxxxxE, KC_DEL, xxxxxxO, xxxQUOT, xxxxENT,
         xxxLSFT, xxxxxxZ, xxxxxxX, xxxxxxC, xxxxxxV, C(KC_BSPC), xxxxxxK, xxxxxxM, xxxCOMM, xxxxDOT, xxxSLSH, xxxRSFT,
         xxxLCTL, xxxxxxx, xxxLGUI, xxxxSPC, xxxLALT, xxxRALT, xxxRCTL, xxxxxxx
     ),
@@ -85,12 +89,48 @@ bool rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case M_VIM_DD:
+    case M_VIM_DEL_LINE:
         if (record->event.pressed) {
             SEND_STRING(SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_LCTL("x"));
+        }
+        break;
+    case M_VIM_APPEND:
+        if (record->event.pressed) {
+            tap_code(KC_END);
+        }
+        break;
+    case M_VIM_INSERT:
+        if (record->event.pressed) {
+            tap_code(KC_HOME);
+        }
+        break;
+    case M_VIM_APP_LINE:
+        if (record->event.pressed) {
+            tap_code(KC_END);
+            tap_code(KC_ENT);
+        }
+        break;
+    case M_VIM_INS_LINE:
+        if (record->event.pressed) {
+            tap_code(KC_HOME);
+            tap_code(KC_ENT);
+            tap_code(KC_UP);
         }
         break;
     }
 
     return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case M_VIM_APPEND:
+    case M_VIM_INSERT:
+    case M_VIM_APP_LINE:
+    case M_VIM_INS_LINE:
+        if (record->event.pressed) {
+            layer_off(L_NORMAL);
+        }
+        break;
+    }
 }
