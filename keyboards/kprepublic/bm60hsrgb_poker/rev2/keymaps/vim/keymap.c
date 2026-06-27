@@ -57,3 +57,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___LCTL, _______, ___LGUI, ____SPC, ___LALT, ___RALT, ___RCTL, _______
     ),
 };
+
+bool rgb_matrix_indicators_user(void) {
+    if (IS_LAYER_ON(L_NORMAL)) {
+        rgb_matrix_set_color(54, 120, 120, 120);
+        rgb_matrix_set_color(60, 120, 120, 120);
+    } else {
+        rgb_matrix_set_color(54, 0, 0, 0);
+        rgb_matrix_set_color(60, 0, 0, 0);
+    }
+
+    return true;
+}
