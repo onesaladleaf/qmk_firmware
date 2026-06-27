@@ -72,6 +72,14 @@ bool rgb_matrix_indicators_user(void) {
         rgb_matrix_set_color(60, 0, 0, 0);
     }
 
+    if (IS_LAYER_ON(L_VISUAL)) {
+        rgb_matrix_set_color(41, 120, 120, 120);
+        rgb_matrix_set_color(52, 120, 120, 120);
+    } else {
+        rgb_matrix_set_color(41, 0, 0, 0);
+        rgb_matrix_set_color(52, 0, 0, 0);
+    }
+
     return true;
 }
 
