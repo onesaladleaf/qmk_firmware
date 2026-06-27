@@ -105,7 +105,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case M_VIM_DEL_LINE:
         if (record->event.pressed) {
-            SEND_STRING(SS_TAP(X_END) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_TAP(X_LEFT) SS_UP(X_LSFT) SS_LCTL("x"));
+            tap_code(KC_END);
+            tap_code16(S(KC_HOME));
+            tap_code16(S(KC_LEFT));
+            tap_code16(C(CM_X));
         }
         break;
     case M_VIM_APPEND:
